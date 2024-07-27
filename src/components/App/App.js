@@ -5,19 +5,19 @@ import Home from '../Home/Home';
 import SearchPage from '../SearchResults/SearchResults';
 import Favorites from '../Favorites/Favorites';
 import ArtistDetails from '../ArtistPage/ArtistPage';
-
+import { FavoritesProvider } from '../../contexts/FavoritesContext';
 
 function App() {
   return (
-    <div>
+    <FavoritesProvider>
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/search" element={<SearchPage />} />
         <Route path="/favorites" element={<Favorites />} />
-        <Route path="/artist/:artistId" element={<ArtistDetails/>} />
+        <Route path="/artist/:artistId" element={<ArtistDetails />} />
       </Routes>
-    </div>
+    </FavoritesProvider>
   );
 }
 
