@@ -1,9 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { useParams } from 'react-router-dom';
+import { FavoritesContext } from '../../contexts/FavoritesContext';
+import './ArtistPage.css';
 
 function ArtistDetails() {
   const { artistId } = useParams();
   const [artist, setArtist] = useState(null);
+  const { favorites, addFavorite, removeFavorite } = useContext(FavoritesContext);
+
+  const isFavorited = favorites.some(favorite => favorite.id === artistId);
 
   useEffect(() => {
     const fetchArtistDetails = async () => {
@@ -22,16 +27,33 @@ function ArtistDetails() {
       }
     };
 
+
     fetchArtistDetails();
   }, [artistId]);
 
+  const handleFavoriteClick = () => {
+    if (isFavorited) {
+      removeFavorite(artistId);
+    } else {
+      addFavorite({ id: artistId, name: artist.name });
+    }
+  };
+
   return (
-    <div>
+    <div className="artist-details">
       {artist ? (
         <div>
           <h1>{artist.name}</h1>
+          <img src={artist.images[0].uri} alt={artist.name} />
           <p>{artist.profile}</p>
-            <img src={artist.images[0].uri} alt={artist.name} />
+          <button onClick={handleFavoriteClick}>
+            {isFavorited ? 'Unfavorite' : 'Favorite'}
+          </button>
+          <div className="artist-info">
+            <p><strong>Real Name:</strong> {artist.realname}</p>
+            <p><strong>Members:</strong> {artist.members ? artist.members.map(member => member.name).join(', ') : 'N/A'}</p>
+            <p><strong>URLs:</strong> {artist.urls ? artist.urls.map(url => <a href={url} key={url} target="_blank" rel="noopener noreferrer">{url}</a>) : 'N/A'}</p>
+          </div>
         </div>
       ) : (
         <p>Loading...</p>
