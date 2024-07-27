@@ -31,7 +31,7 @@ function ArtistDetails() {
         <div>
           <h1>{artist.name}</h1>
           <p>{artist.profile}</p>
-          {/* Display other artist details here */}
+            <img src={artist.images[0].uri} alt={artist.name} />
         </div>
       ) : (
         <p>Loading...</p>

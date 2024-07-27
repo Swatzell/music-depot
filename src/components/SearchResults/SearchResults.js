@@ -2,25 +2,18 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 function SearchPage() {
-  const [params, setParams] = useState({
-    Artist: '',
-  });
+  const [query, setQuery] = useState('');
   const [results, setResults] = useState([]);
   const navigate = useNavigate();
 
   const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setParams({
-      ...params,
-      [name]: value
-    });
+    setQuery(e.target.value);
   };
 
   const handleSearch = async (e) => {
     e.preventDefault();
     const token = 'kqgYPvozoTdGUTWqjCHfEUpjCUuQOuBsJIzNiIoH';
-    const queryString = new URLSearchParams(params).toString();
-    const url = `https://api.discogs.com/database/search?${queryString}&token=${token}`;
+    const url = `https://api.discogs.com/database/search?q=${query}&type=artist&token=${token}`;
 
     try {
       const response = await fetch(url);
@@ -40,11 +33,11 @@ function SearchPage() {
 
   return (
     <div>
-      <h1>Music Depot</h1>
+      <h1>Discogs Artist Search</h1>
       <form onSubmit={handleSearch}>
         <div>
-          <label>Artist: </label>
-          <input type="text" name="query" value={params.query} onChange={handleInputChange} />
+          <label>Artist Name: </label>
+          <input type="text" value={query} onChange={handleInputChange} />
         </div>
         <button type="submit">Search</button>
       </form>
