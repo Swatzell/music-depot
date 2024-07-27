@@ -9,8 +9,12 @@ export const FavoritesProvider = ({ children }) => {
     setFavorites([...favorites, artist]);
   };
 
+  const removeFavorite = (artistId) => {
+    setFavorites(favorites.filter(artist => artist.id !== artistId));
+  };
+
   return (
-    <FavoritesContext.Provider value={{ favorites, addFavorite }}>
+    <FavoritesContext.Provider value={{ favorites, addFavorite, removeFavorite }}>
       {children}
     </FavoritesContext.Provider>
   );
