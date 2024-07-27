@@ -6,7 +6,7 @@ import './ArtistPage.css';
 function ArtistDetails() {
   const { artistId } = useParams();
   const [artist, setArtist] = useState(null);
-  const { favorites, addFavorite } = useContext(FavoritesContext);
+  const { favorites, addFavorite, removeFavorite } = useContext(FavoritesContext);
 
   const isFavorited = favorites.some(favorite => favorite.id === artistId);
 
@@ -27,8 +27,17 @@ function ArtistDetails() {
       }
     };
 
+
     fetchArtistDetails();
   }, [artistId]);
+
+  const handleFavoriteClick = () => {
+    if (isFavorited) {
+      removeFavorite(artistId);
+    } else {
+      addFavorite({ id: artistId, name: artist.name });
+    }
+  };
 
   return (
     <div className="artist-details">
@@ -37,11 +46,8 @@ function ArtistDetails() {
           <h1>{artist.name}</h1>
           <img src={artist.images[0].uri} alt={artist.name} />
           <p>{artist.profile}</p>
-          <button
-            onClick={() => addFavorite({ id: artistId, name: artist.name })}
-            disabled={isFavorited}
-          >
-            {isFavorited ? 'Favorited' : 'Favorite'}
+          <button onClick={handleFavoriteClick}>
+            {isFavorited ? 'Unfavorite' : 'Favorite'}
           </button>
           <div className="artist-info">
             <p><strong>Real Name:</strong> {artist.realname}</p>
