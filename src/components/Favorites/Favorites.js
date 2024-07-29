@@ -19,29 +19,35 @@ function Favorites() {
         </Typography>
       </Box>
       <Box sx={{ my: 4 }}>
-        <Grid container spacing={3}>
-          {favorites.map((artist, index) => (
-            <Grid item xs={12} sm={6} md={4} key={index}>
-              <Card onClick={() => handleResultClick(artist.id)}>
-                <CardActionArea>
-                  {artist.image && (
-                    <CardMedia
-                      component="img"
-                      height="200"
-                      image={artist.image}
-                      alt={artist.name}
-                    />
-                  )}
-                  <CardContent>
-                    <Typography gutterBottom variant="h6" component="div">
-                      {artist.name}
-                    </Typography>
-                  </CardContent>
-                </CardActionArea>
-              </Card>
-            </Grid>
-          ))}
-        </Grid>
+        {favorites.length === 0 ? (
+          <Typography variant="h6" component="p" textAlign="center">
+            No favorites yet
+          </Typography>
+        ) : (
+          <Grid container spacing={3}>
+            {favorites.map((artist, index) => (
+              <Grid item xs={12} sm={6} md={4} key={index}>
+                <Card onClick={() => handleResultClick(artist.id)}>
+                  <CardActionArea>
+                    {artist.image && (
+                      <CardMedia
+                        component="img"
+                        height="200"
+                        image={artist.image}
+                        alt={artist.name}
+                      />
+                    )}
+                    <CardContent>
+                      <Typography gutterBottom variant="h6" component="div">
+                        {artist.name}
+                      </Typography>
+                    </CardContent>
+                  </CardActionArea>
+                </Card>
+              </Grid>
+            ))}
+          </Grid>
+        )}
       </Box>
     </Container>
   );

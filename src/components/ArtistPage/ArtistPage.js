@@ -42,6 +42,11 @@ function ArtistDetails() {
     }
   };
 
+  const cleanProfileText = (text) => {
+    const linkRegex = /\[(.*?)=(.*?)\]/g;
+    return text.replace(linkRegex, (match, p1, p2) => p2);
+  };
+
   return (
     <Container>
       {artist ? (
@@ -58,7 +63,7 @@ function ArtistDetails() {
                 {artist.name}
               </Typography>
               <Typography variant="body1" gutterBottom>
-                {artist.profile}
+                {cleanProfileText(artist.profile)}
               </Typography>
               <Button variant="contained" color={isFavorited ? 'secondary' : 'primary'} onClick={handleFavoriteClick}>
                 {isFavorited ? 'Unfavorite' : 'Favorite'}
