@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Card, CardActionArea, CardContent, CardMedia, Typography } from '@mui/material';
+import { Card, CardActionArea, CardContent, CardMedia, Typography, Container, Box } from '@mui/material';
 
 const artistIds = [125246, 605148, 17199];
 
@@ -34,26 +34,38 @@ function Home() {
   };
 
   return (
-    <div>
-      <h1>Music Depot</h1>
-      {artist && (
-        <Card>
-          <CardActionArea onClick={handleCardClick}>
-            <CardMedia
-              component="img"
-              height="500"
-              image={artist.images[0].uri}
-              alt={artist.name}
-            />
-            <CardContent>
-              <Typography gutterBottom variant="h5" component="div">
-                {artist.name}
-              </Typography>
-            </CardContent>
-          </CardActionArea>
-        </Card>
-      )}
-    </div>
+    <Container>
+      <Box sx={{ my: 4, textAlign: 'center' }}>
+        <Typography variant="h2" component="h1" gutterBottom>
+          Welcome to Music Depot
+        </Typography>
+        <Typography variant="h5" component="p" gutterBottom>
+          Where you can find anything you need to know about your favorite Musicians and Bands.
+        </Typography>
+      </Box>
+      <Box sx={{ my: 4, textAlign: 'center' }}>
+        <Typography variant="h4" component="h2" gutterBottom>
+          Featured Artist
+        </Typography>
+        {artist && (
+          <Card sx={{ maxWidth: 600, mx: 'auto' }}>
+            <CardActionArea onClick={handleCardClick}>
+              <CardMedia
+                component="img"
+                height="500"
+                image={artist.images[0].uri}
+                alt={artist.name}
+              />
+              <CardContent>
+                <Typography gutterBottom variant="h5" component="div">
+                  {artist.name}
+                </Typography>
+              </CardContent>
+            </CardActionArea>
+          </Card>
+        )}
+      </Box>
+    </Container>
   );
 }
 
