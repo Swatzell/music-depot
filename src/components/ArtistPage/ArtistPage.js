@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { FavoritesContext } from '../../contexts/FavoritesContext';
-import './ArtistPage.css';
+import { Container, Box, Typography, Button, Card, CardContent, CardMedia } from '@mui/material';
 
 function ArtistDetails() {
   const { artistId } = useParams();
@@ -27,7 +27,6 @@ function ArtistDetails() {
       }
     };
 
-
     fetchArtistDetails();
   }, [artistId]);
 
@@ -35,30 +34,68 @@ function ArtistDetails() {
     if (isFavorited) {
       removeFavorite(artistId);
     } else {
-      addFavorite({ id: artistId, name: artist.name });
+      addFavorite({
+        id: artistId,
+        name: artist.name,
+        image: artist.images ? artist.images[0].uri : null,
+      });
     }
   };
 
+  const cleanProfileText = (text) => {
+    const linkRegex = /\[(.*?)=(.*?)\]/g;
+    return text.replace(linkRegex, (match, p1, p2) => p2);
+  };
+
   return (
-    <div className="artist-details">
+    <Container>
       {artist ? (
-        <div>
-          <h1>{artist.name}</h1>
-          <img src={artist.images[0].uri} alt={artist.name} />
-          <p>{artist.profile}</p>
-          <button onClick={handleFavoriteClick}>
-            {isFavorited ? 'Unfavorite' : 'Favorite'}
-          </button>
-          <div className="artist-info">
-            <p><strong>Real Name:</strong> {artist.realname}</p>
-            <p><strong>Members:</strong> {artist.members ? artist.members.map(member => member.name).join(', ') : 'N/A'}</p>
-            <p><strong>URLs:</strong> {artist.urls ? artist.urls.map(url => <a href={url} key={url} target="_blank" rel="noopener noreferrer">{url}</a>) : 'N/A'}</p>
-          </div>
-        </div>
+        <Box sx={{ my: 4 }}>
+          <Card>
+            <CardMedia
+              component="img"
+              height="1000"
+              image={artist.images[0].uri}
+              alt={artist.name}
+            />
+            <CardContent>
+              <Typography variant="h3" component="h1" gutterBottom>
+                {artist.name}
+              </Typography>
+              <Typography variant="body1" gutterBottom>
+                {cleanProfileText(artist.profile)}
+              </Typography>
+              <Button variant="contained" color={isFavorited ? 'secondary' : 'primary'} onClick={handleFavoriteClick}>
+                {isFavorited ? 'Unfavorite' : 'Favorite'}
+              </Button>
+              <Box sx={{ mt: 2 }}>
+                <Typography variant="h6" component="p">
+                  <strong>Real Name:</strong> {artist.realname}
+                </Typography>
+                <Typography variant="h6" component="p">
+                  <strong>Members:</strong> {artist.members ? artist.members.map(member => (
+                    <Box component="span" key={member.id} sx={{ display: 'block' }}>
+                      <Link to={`/artist/${member.id}`}>{member.name}</Link>
+                    </Box>
+                  )) : 'N/A'}
+                </Typography>
+                <Typography variant="h6" component="p">
+                  <strong>URLs:</strong> {artist.urls ? artist.urls.map(url => (
+                    <Box component="span" key={url} sx={{ display: 'block' }}>
+                      <a href={url} target="_blank" rel="noopener noreferrer">{url}</a>
+                    </Box>
+                  )) : 'N/A'}
+                </Typography>
+              </Box>
+            </CardContent>
+          </Card>
+        </Box>
       ) : (
-        <p>Loading...</p>
+        <Typography variant="h5" component="p">
+          Loading...
+        </Typography>
       )}
-    </div>
+    </Container>
   );
 }
 
