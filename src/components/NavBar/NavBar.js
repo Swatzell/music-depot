@@ -1,31 +1,35 @@
 import './NavBar.css';
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { AppBar, Toolbar, Typography, Button } from '@mui/material';
 
 function Navbar() {
   const location = useLocation();
   const currentPath = location.pathname;
 
   return (
-    <nav>
-      <ul>
+    <AppBar position="static">
+      <Toolbar>
+        <Typography variant="h6" style={{ flexGrow: 1 }}>
+          Music Depot
+        </Typography>
         {currentPath !== '/' && (
-          <li>
-            <Link to="/">Home</Link>
-          </li>
+          <Button color="inherit" component={Link} to="/">
+            Home
+          </Button>
         )}
         {currentPath !== '/search' && (
-          <li>
-            <Link to="/search">Search</Link>
-          </li>
+          <Button color="inherit" component={Link} to="/search">
+            Search
+          </Button>
         )}
         {currentPath !== '/favorites' && (
-          <li>
-            <Link to="/favorites">Favorites</Link>
-          </li>
+          <Button color="inherit" component={Link} to="/favorites">
+            Favorites
+          </Button>
         )}
-      </ul>
-    </nav>
+      </Toolbar>
+    </AppBar>
   );
 }
 
