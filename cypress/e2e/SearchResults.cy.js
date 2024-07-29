@@ -31,3 +31,26 @@ describe('Search Page Happy Path', () => {
     });
   });
 });
+
+describe('Search Page Sad Path', () => {
+  beforeEach(() => {
+    cy.intercept('GET', 'https://api.discogs.com/database/search**', {
+      statusCode: 500,
+      body: { error: 'Internal Server Error' }
+    }).as('searchRequest');
+  });
+
+  it('should handle API errors gracefully', () => {
+    cy.visit('http://localhost:3000/search'); 
+
+    
+    cy.get('input').type('Nirvana');
+    cy.get('button').contains('Search').click();
+
+    
+    cy.wait('@searchRequest');
+
+    
+    cy.get('.MuiAlert-message').contains('Error fetching data').should('be.visible');
+  });
+});

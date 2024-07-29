@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { Card, CardActionArea, CardContent, CardMedia, Typography, TextField, Button, Container, Grid, Box } from '@mui/material';
+import { Card, CardActionArea, CardContent, CardMedia, Typography, TextField, Button, Container, Grid, Box, Alert } from '@mui/material';
 
 function useQuery() {
   return new URLSearchParams(useLocation().search);
@@ -9,6 +9,7 @@ function useQuery() {
 function SearchPage() {
   const [query, setQuery] = useState('');
   const [results, setResults] = useState([]);
+  const [error, setError] = useState('');
   const navigate = useNavigate();
   const location = useLocation();
   const urlQuery = useQuery();
@@ -42,7 +43,9 @@ function SearchPage() {
       }
       const data = await response.json();
       setResults(data.results);
+      setError(''); // Clear any previous errors
     } catch (error) {
+      setError('Error fetching data');
       console.error('Error fetching data:', error);
     }
   };
@@ -71,6 +74,11 @@ function SearchPage() {
           </Button>
         </form>
       </Box>
+      {error && (
+        <Box sx={{ my: 4 }}>
+          <Alert severity="error">{error}</Alert>
+        </Box>
+      )}
       <Box sx={{ my: 4 }}>
         <Typography variant="h5" component="h2" gutterBottom>
           Results:
