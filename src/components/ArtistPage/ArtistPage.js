@@ -27,7 +27,6 @@ function ArtistDetails() {
       }
     };
 
-
     fetchArtistDetails();
   }, [artistId]);
 
@@ -35,7 +34,11 @@ function ArtistDetails() {
     if (isFavorited) {
       removeFavorite(artistId);
     } else {
-      addFavorite({ id: artistId, name: artist.name });
+      addFavorite({
+        id: artistId,
+        name: artist.name,
+        image: artist.images ? artist.images[0].uri : null,
+      });
     }
   };
 
