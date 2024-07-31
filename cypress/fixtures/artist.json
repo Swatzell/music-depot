@@ -1,13 +1,8 @@
 {
   "id": 12345,
   "name": "Nirvana",
-  "profile": "Nirvana was an American rock band formed in Aberdeen, Washington, in 1987.",
-  "images": [
-    {
-      "uri": "https://example.com/nirvana.jpg"
-    }
-  ],
-  "realname": "Nirvana",
+  "profile": "Nirvana was an American rock band...",
+  "realname": "Nirvana Band",
   "members": [
     {
       "id": 1,
@@ -22,7 +17,13 @@
       "name": "Dave Grohl"
     }
   ],
+  "images": [
+    {
+      "uri": "https://example.com/nirvana.jpg"
+    }
+  ],
   "urls": [
-    "https://www.nirvana.com"
+    "https://nirvana.com",
+    "https://wikipedia.org/wiki/Nirvana_(band)"
   ]
 }
