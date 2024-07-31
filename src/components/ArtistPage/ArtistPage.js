@@ -1,11 +1,12 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { FavoritesContext } from '../../contexts/FavoritesContext';
-import { Container, Box, Typography, Button, Card, CardContent, CardMedia } from '@mui/material';
+import { Container, Box, Typography, Button, Card, CardContent, CardMedia, Alert } from '@mui/material';
 
 function ArtistDetails() {
   const { artistId } = useParams();
   const [artist, setArtist] = useState(null);
+  const [error, setError] = useState('');
   const { favorites, addFavorite, removeFavorite } = useContext(FavoritesContext);
 
   const isFavorited = favorites.some(favorite => favorite.id === artistId);
@@ -22,7 +23,9 @@ function ArtistDetails() {
         }
         const data = await response.json();
         setArtist(data);
+        setError(''); 
       } catch (error) {
+        setError('Error fetching artist details');
         console.error('Error fetching artist details:', error);
       }
     };
@@ -49,7 +52,9 @@ function ArtistDetails() {
 
   return (
     <Container>
-      {artist ? (
+      {error ? (
+        <Alert severity="error">{error}</Alert>
+      ) : artist ? (
         <Box sx={{ my: 4 }}>
           <Card>
             <CardMedia

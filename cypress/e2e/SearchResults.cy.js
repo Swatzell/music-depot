@@ -40,7 +40,7 @@ describe('Search Page Sad Path', () => {
     }).as('searchRequest');
   });
 
-  it('should handle API errors gracefully', () => {
+  it('should handle API errors', () => {
     cy.visit('http://localhost:3000/search'); 
 
     

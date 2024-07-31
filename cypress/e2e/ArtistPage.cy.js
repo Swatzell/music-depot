@@ -23,3 +23,21 @@ describe('Artist Page Happy Path', () => {
     cy.contains('https://wikipedia.org/wiki/Nirvana_(band)').should('have.attr', 'href', 'https://wikipedia.org/wiki/Nirvana_(band)');
   });
 });
+
+describe('Artist Page Sad Path', () => {
+  beforeEach(() => {
+    cy.intercept('GET', 'https://api.discogs.com/artists/12345**', {
+      statusCode: 500,
+      body: { error: 'Internal Server Error' }
+    }).as('artistRequest');
+  });
+
+  it('should handle API errors', () => {
+    cy.visit('http://localhost:3000/artist/12345');
+    
+    cy.wait('@artistRequest');
+
+
+    cy.contains('Error fetching artist details').should('be.visible');
+  });
+});
