@@ -30,3 +30,17 @@ describe('Favorites Page Happy Path', () => {
     });
   });
 });
+
+describe('Favorites Page Sad Path', () => {
+  beforeEach(() => {
+  
+    cy.setFavorites([]);
+
+    cy.visit('http://localhost:3000/favorites'); 
+  });
+
+  it('should display no favorites message when there are no favorite artists', () => {
+   
+    cy.contains('No favorites yet', { timeout: 10000 }).should('be.visible');
+  });
+});
