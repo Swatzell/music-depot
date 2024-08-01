@@ -92,6 +92,7 @@ function SearchPage() {
                     <CardMedia
                       component="img"
                       height="200"
+                      // Line 95 : image = {result.cover_image ? result.cover_image : '/src/asset/animage of your choice}
                       image={result.cover_image}
                       alt={result.title}
                     />
