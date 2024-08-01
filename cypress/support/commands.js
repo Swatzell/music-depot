@@ -23,3 +23,11 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+
+
+  Cypress.Commands.add('setFavorites', (favorites) => {
+    cy.window().then((win) => {
+      win.localStorage.setItem('favorites', JSON.stringify(favorites));
+      win.location.reload();
+    });
+  });

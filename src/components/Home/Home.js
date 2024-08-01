@@ -6,6 +6,7 @@ const artistIds = [125246, 605148, 17199];
 
 function Home() {
   const [artist, setArtist] = useState(null);
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -23,6 +24,7 @@ function Home() {
         setArtist(data);
       } catch (error) {
         console.error('Error fetching artist details:', error);
+        setError('Error loading featured artist');
       }
     };
 
@@ -46,6 +48,9 @@ function Home() {
       <Box sx={{ my: 4, textAlign: 'center' }}>
         <Typography variant="h4" component="h2" gutterBottom>
           Featured Artist
+        </Typography>
+        <Typography variant="h6" color="error">
+           {error}
         </Typography>
         {artist && (
           <Card sx={{ maxWidth: 600, mx: 'auto' }}>

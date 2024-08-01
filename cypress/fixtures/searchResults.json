@@ -1,0 +1,14 @@
+{
+  "results": [
+    {
+      "id": 12345,
+      "title": "Nirvana",
+      "cover_image": "https://example.com/nirvana.jpg"
+    },
+    {
+      "id": 67890,
+      "title": "Pearl Jam",
+      "cover_image": "https://example.com/pearljam.jpg"
+    }
+  ]
+}

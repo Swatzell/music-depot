@@ -1,0 +1,29 @@
+{
+  "id": 12345,
+  "name": "Nirvana",
+  "profile": "Nirvana was an American rock band...",
+  "realname": "Nirvana Band",
+  "members": [
+    {
+      "id": 1,
+      "name": "Kurt Cobain"
+    },
+    {
+      "id": 2,
+      "name": "Krist Novoselic"
+    },
+    {
+      "id": 3,
+      "name": "Dave Grohl"
+    }
+  ],
+  "images": [
+    {
+      "uri": "https://example.com/nirvana.jpg"
+    }
+  ],
+  "urls": [
+    "https://nirvana.com",
+    "https://wikipedia.org/wiki/Nirvana_(band)"
+  ]
+}
