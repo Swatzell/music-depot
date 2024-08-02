@@ -6,7 +6,8 @@ I developed a webpage that is a resource for music lovers. It allows the user to
 
 Access the repo here: [https://github.com/Swatzell/rock-paper-scissors] Copy the SSH repository URL git@github.com:Swatzell/music-depot.git Open terminal and 'cd' into the directory you wish to clone Clone the repository by submitting git clone git@github.com:Swatzell/music-depot.git. Run npm I to install dependencies and then npm start to open the app.
 
-## Deplaoyed Link
+## Deplaoyed Link:
+https://music-depot.vercel.app/
 
 ## Preview of App: 
 
