@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { Card, CardActionArea, CardContent, CardMedia, Typography, TextField, Button, Container, Grid, Box, Alert } from '@mui/material';
-import defaultImage from '../../assets/karim-boubker-inCiuLNuwdw-unsplash.jpg';
 
 function useQuery() {
   return new URLSearchParams(useLocation().search);
@@ -44,7 +43,7 @@ function SearchPage() {
       }
       const data = await response.json();
       setResults(data.results);
-      setError('');
+      setError(''); // Clear any previous errors
     } catch (error) {
       setError('Error fetching data');
       console.error('Error fetching data:', error);
@@ -89,17 +88,15 @@ function SearchPage() {
             <Grid item xs={12} sm={6} md={4} key={index}>
               <Card onClick={() => handleResultClick(result.id)}>
                 <CardActionArea>
-                  <CardMedia
-                    component="img"
-                    height="200"
-                    src={
-                      result.cover_image === 'https://st.discogs.com/d74fffb6f89460cb656ba80eb012c822ebcf56a2/images/spacer.gif'
-                        ? defaultImage
-                        : result.cover_image || defaultImage
-                    }
-                    alt={result.title}
-                    onError={(e) => { e.target.src = defaultImage; }} 
-                  />
+                  {result.cover_image && (
+                    <CardMedia
+                      component="img"
+                      height="200"
+                      // Line 95 : image = {result.cover_image ? result.cover_image : '/src/asset/animage of your choice}
+                      image={result.cover_image}
+                      alt={result.title}
+                    />
+                  )}
                   <CardContent>
                     <Typography gutterBottom variant="h6" component="div">
                       {result.title}
