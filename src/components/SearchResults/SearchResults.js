@@ -93,7 +93,7 @@ function SearchPage() {
                     component="img"
                     height="200"
                     src={
-                      result.cover_image === 'https://st.discogs.com/d74fffb6f89460cb656ba80eb012c822ebcf56a2/images/spacer.gif'
+                      result.cover_image && result.cover_image.endsWith('/images/spacer.gif')
                         ? defaultImage
                         : result.cover_image || defaultImage
                     }
