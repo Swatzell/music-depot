@@ -2,7 +2,6 @@ import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FavoritesContext } from '../../contexts/FavoritesContext';
 import { Container, Box, Typography, Grid, Card, CardActionArea, CardContent, CardMedia } from '@mui/material';
-import defaultImage from '../../assets/karim-boubker-inCiuLNuwdw-unsplash.jpg';
 
 function Favorites() {
   const { favorites } = useContext(FavoritesContext);
@@ -30,12 +29,14 @@ function Favorites() {
               <Grid item xs={12} sm={6} md={4} key={index}>
                 <Card onClick={() => handleResultClick(artist.id)}>
                   <CardActionArea>
-                    <CardMedia
-                      component="img"
-                      height="200"
-                      src={artist.image || defaultImage} 
-                      alt={artist.name}
-                    />
+                    {artist.image && (
+                      <CardMedia
+                        component="img"
+                        height="200"
+                        image={artist.image}
+                        alt={artist.name}
+                      />
+                    )}
                     <CardContent>
                       <Typography gutterBottom variant="h6" component="div">
                         {artist.name}
