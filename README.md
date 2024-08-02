@@ -25,3 +25,4 @@ The goal of this project was to showcase my knowledge and abilities working with
 ## Wins + Challenges:
 
 A big win for me was getting everything from the api to display correctly. The discogs API is massive and has a ton of data so sorting through that correctly and getting it to display was a big win.
+A big challenge was getting the default image to show up on search results when there wasnt an available image. It took awhile to figure out that the api was inserting some weird link into the ones without a true image link and I was finally able to tell it that if it saw that link then replace it with the default image.
